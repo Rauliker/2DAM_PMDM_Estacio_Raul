@@ -39,19 +39,20 @@ class _FormRobotState extends State<FormRobot> {
                 alignment: Alignment.centerRight,
                 child: ElevatedButton(
                     onPressed: () {
+                      bool funciona = false;
                       String textoSnack = "";
-                      if (_formKey.currentState!.validate()) {
+                      if (_formKey.currentState!.validate() &&
+                          _nombreRobotController.text.isNotEmpty) {
                         setState(() {
                           nombreRobot = _nombreRobotController.text;
                         });
-                        textoSnack =
-                            "Robot actualizado con el nombre $nombreRobot";
+                        textoSnack = 'Robot con nombre $nombreRobot creado ';
+                        funciona = true;
                       } else {
-                        textoSnack =
-                            "Debe introducir un nombre para generar el robot";
+                        textoSnack = 'Pon un nombre';
+                        funciona = false;
                       }
-                      ScaffoldMessenger.of(context)
-                          .showSnackBar(SnackBar(content: Text(textoSnack)));
+                      _mostrarDialogo(context, funciona, textoSnack);
                     },
                     child: const Text("Generar robot")),
               ),
@@ -67,5 +68,31 @@ class _FormRobotState extends State<FormRobot> {
           "https://upload.wikimedia.org/wikipedia/en/0/02/Homer_Simpson_2006.png");
     }
     return Image.network("https://robohash.org/$nombreRobot");
+  }
+
+  void _mostrarDialogo(BuildContext context, bool func, String text) {
+    String title = "";
+    if (func == true) {
+      title = "Robot creado";
+    } else {
+      title = "Error";
+    }
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(text),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Aceptar'),
+            ),
+          ],
+        );
+      },
+    );
   }
 }

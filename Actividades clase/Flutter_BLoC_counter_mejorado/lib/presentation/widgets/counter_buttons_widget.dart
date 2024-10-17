@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_contador/presentation/bloc/counter/counter_events.dart';
-import 'package:flutter_contador/presentation/bloc/counter/counter_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_contador/presentation/bloc/counter/counter_bloc.dart';
+import 'package:flutter_contador/presentation/bloc/counter/counter_events.dart';
 
 class CounterButtonsWidget extends StatelessWidget {
   const CounterButtonsWidget({super.key});

@@ -16,7 +16,7 @@ class CounterHomePageScreen extends StatelessWidget {
         appBar: AppBar(
           title: BlocBuilder<CounterBloc, CounterState>(
             builder: (context, state) {
-              return Text('Bloc Counter ${state.transactionCount}');
+              return Text('Contador ${state.transactionCount}');
             },
           ),
           actions: [

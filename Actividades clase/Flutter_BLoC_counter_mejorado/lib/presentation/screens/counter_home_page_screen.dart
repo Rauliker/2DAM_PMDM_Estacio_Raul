@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_contador/presentation/bloc/counter/counter_events.dart';
 import 'package:flutter_contador/presentation/bloc/counter/counter_state.dart';
 import 'package:flutter_contador/presentation/widgets/counter_buttons_widget.dart';
 import 'package:flutter_contador/presentation/bloc/counter/counter_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_contador/presentation/widgets/counter_drawer_widget.dart';
-import 'package:flutter_contador/presentation/widgets/themesDialog.dart';
+import 'package:flutter_contador/presentation/widgets/dialog_theme.dart';
 
 class CounterHomePageScreen extends StatelessWidget {
   const CounterHomePageScreen({super.key});
@@ -19,14 +18,6 @@ class CounterHomePageScreen extends StatelessWidget {
               return Text('Contador ${state.transactionCount}');
             },
           ),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.refresh),
-              onPressed: () {
-                context.read<CounterBloc>().add(CounterReset());
-              },
-            ),
-          ],
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_contador/presentation/bloc/counter/counter_bloc.dart';
 import 'package:flutter_contador/presentation/bloc/counter/counter_events.dart';
 import 'package:flutter_contador/presentation/bloc/counter/counter_state.dart';
-import 'package:flutter_contador/presentation/widgets/themesDialog.dart';
+import 'package:flutter_contador/presentation/widgets/dialog_theme.dart';
 
 class CounterDrawerWidget extends StatelessWidget {
   const CounterDrawerWidget({super.key});

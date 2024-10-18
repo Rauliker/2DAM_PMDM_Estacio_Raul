@@ -118,6 +118,7 @@ void showThemesDialog(BuildContext context) {
       );
     },
   ).then((value) {
+    // Si el diálogo se cierra, actualiza el estado de la aplicación si no se ha cerrado desde aceptar
     if (closeDialog == false) {
       // Cancela la selección de tema temporal y restaura el tema anterior
       themeBloc.add(CancelTheme());

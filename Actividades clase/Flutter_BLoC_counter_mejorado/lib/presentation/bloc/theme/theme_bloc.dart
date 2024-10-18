@@ -32,9 +32,12 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
 
   void _onApplyTheme(ApplyTheme event, Emitter<ThemeState> emit) {
     // Hace que el tema temporal sea definitivo y guarda los datos del tema temporal como el tema seleccionado
-    _originalTheme = state.temporalTheme!;
-    emit(ThemeState(
-        currentTheme: state.temporalTheme!)); // Aplicamos el tema temporal
+    if (state.temporalTheme != null) {
+      _originalTheme = state.temporalTheme!;
+      emit(ThemeState(currentTheme: state.temporalTheme!));
+    } else {
+      emit(ThemeState(currentTheme: _originalTheme));
+    }
   }
 
   void _onCancelTheme(CancelTheme event, Emitter<ThemeState> emit) {

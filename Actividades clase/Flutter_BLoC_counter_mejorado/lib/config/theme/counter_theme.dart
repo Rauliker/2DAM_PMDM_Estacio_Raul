@@ -14,13 +14,15 @@ const colorList = <Color>[
 
 class AppTheme {
   final bool useMaterial3;
-  int selectedColor;
+  final int selectedColor;
   final bool isDarkmode;
+  final double sizeText; // Añadir propiedad para el tamaño de texto
 
   AppTheme({
     this.useMaterial3 = true,
     this.selectedColor = 0,
     this.isDarkmode = false,
+    this.sizeText = 18, // Inicializar tamaño de texto por defecto
   });
 
   ThemeData getTheme() => ThemeData(
@@ -36,7 +38,7 @@ class AppTheme {
           displayLarge: TextStyle(
               fontSize: 45, color: isDarkmode ? Colors.white : Colors.black),
           bodyLarge: TextStyle(
-              fontSize: 18,
+              fontSize: sizeText, // Usar la propiedad fontSize
               color: isDarkmode ? Colors.white70 : Colors.black87),
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(

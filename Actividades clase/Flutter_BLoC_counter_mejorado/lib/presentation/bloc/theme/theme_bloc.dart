@@ -9,7 +9,8 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
 
   ThemeBloc()
       : super(ThemeState(
-            currentTheme: AppTheme(selectedColor: 0, isDarkmode: false))) {
+            currentTheme:
+                AppTheme(selectedColor: 0, isDarkmode: false, sizeText: 18))) {
     _originalTheme =
         state.currentTheme; // Almacena el tema actual como seleccionado
     on<ThemeSelected>(_onThemeSelected);
@@ -20,9 +21,9 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
   void _onThemeSelected(ThemeSelected event, Emitter<ThemeState> emit) {
     // Aplicamos el tema temporalmente sin hacerlo permanente
     final temporalyTheme = AppTheme(
-      selectedColor: event.selectedColor,
-      isDarkmode: event.isDarkMode,
-    );
+        selectedColor: event.selectedColor,
+        isDarkmode: event.isDarkMode,
+        sizeText: event.sizeText);
     emit(ThemeState(
       currentTheme: temporalyTheme, // Aplicamos temporalmente el tema
       temporalTheme: temporalyTheme,

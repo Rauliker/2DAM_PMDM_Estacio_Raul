@@ -1,8 +1,12 @@
 abstract class ThemeEvent {}
 
-class ThemeChanged extends ThemeEvent {
+class ThemeSelected extends ThemeEvent {
   final int selectedColor;
   final bool isDarkMode;
 
-  ThemeChanged(this.selectedColor, this.isDarkMode);
+  ThemeSelected({required this.selectedColor, required this.isDarkMode});
 }
+
+class ApplyTheme extends ThemeEvent {}
+
+class CancelTheme extends ThemeEvent {}

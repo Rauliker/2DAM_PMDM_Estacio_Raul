@@ -1,7 +1,12 @@
 import 'package:flutter_contador/config/theme/counter_theme.dart';
 
 class ThemeState {
-  final AppTheme appTheme;
+  final AppTheme currentTheme;
+  final AppTheme?
+      temporalTheme; // Almacenará el tema temporal si se selecciona uno
 
-  ThemeState(this.appTheme);
+  ThemeState({
+    required this.currentTheme,
+    this.temporalTheme,
+  });
 }

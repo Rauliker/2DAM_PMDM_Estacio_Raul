@@ -4,8 +4,8 @@ import 'package:flutter_contador/presentation/bloc/theme/theme_bloc.dart';
 import 'package:flutter_contador/presentation/bloc/theme/theme_events.dart';
 
 void showThemesDialog(BuildContext context) {
-  final ThemeBloc themeBloc = context.read<ThemeBloc>(); // Obtén el ThemeBloc
-  final currentThemeState = themeBloc.state.appTheme;
+  final ThemeBloc themeBloc = context.read<ThemeBloc>(); // Obtiene el ThemeBloc
+  final currentThemeState = themeBloc.state.currentTheme;
 
   double sliderValue = currentThemeState.selectedColor.toDouble();
   bool isDarkMode = currentThemeState.isDarkmode;
@@ -29,8 +29,9 @@ void showThemesDialog(BuildContext context) {
                     setState(() {
                       sliderValue = value;
                     });
-                    themeBloc.add(ThemeChanged(value.round(),
-                        isDarkMode)); // Envía el evento ThemeChanged
+                    // Emitimos un estado temporal para que los cambios sean visibles inmediatamente
+                    themeBloc.add(ThemeSelected(
+                        selectedColor: value.round(), isDarkMode: isDarkMode));
                   },
                 ),
                 SwitchListTile(
@@ -40,8 +41,10 @@ void showThemesDialog(BuildContext context) {
                     setState(() {
                       isDarkMode = value ?? false;
                     });
-                    themeBloc.add(ThemeChanged(sliderValue.round(),
-                        isDarkMode)); // Envía el evento ThemeChanged
+                    // Emitimos un estado temporal para que los cambios sean visibles inmediatamente
+                    themeBloc.add(ThemeSelected(
+                        selectedColor: sliderValue.round(),
+                        isDarkMode: isDarkMode));
                   },
                 ),
               ],
@@ -49,11 +52,21 @@ void showThemesDialog(BuildContext context) {
           },
         ),
         actions: [
-          TextButton(
+          ElevatedButton(
             onPressed: () {
-              Navigator.of(context).pop();
+              // Aplica el tema temporal como definitivo
+              themeBloc.add(ApplyTheme());
+              Navigator.of(context).pop(); // Cierra el diálogo
             },
-            child: const Text('Cerrar'),
+            child: const Text('Aceptar'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              // Cancela la selección de tema temporal y restaura el tema anterior
+              themeBloc.add(CancelTheme());
+              Navigator.of(context).pop(); // Cierra el diálogo
+            },
+            child: const Text('Cancelar'),
           ),
         ],
       );

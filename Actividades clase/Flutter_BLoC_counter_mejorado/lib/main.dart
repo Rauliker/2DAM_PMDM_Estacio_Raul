@@ -25,7 +25,8 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Contador',
-            theme: themeState.appTheme.getTheme(), // Utiliza el tema del estado
+            theme: themeState.currentTheme
+                .getTheme(), // Utiliza el tema del estado
             home: const CounterHomePageScreen(),
           );
         },

@@ -12,6 +12,7 @@ void showThemesDialog(BuildContext context) {
   bool isDarkMode = currentThemeState.isDarkmode;
   double sizeText =
       currentThemeState.sizeText; // Mantén el tamaño de texto actual
+  bool closeDialog = false;
 
   // Inicializa el controlador del TextField
   TextEditingController sizeTextController =
@@ -102,14 +103,13 @@ void showThemesDialog(BuildContext context) {
             onPressed: () {
               // Aplica el tema temporal como definitivo
               themeBloc.add(ApplyTheme());
+              closeDialog = true;
               Navigator.of(context).pop(); // Cierra el diálogo
             },
             child: const Text('Aceptar'),
           ),
           ElevatedButton(
             onPressed: () {
-              // Cancela la selección de tema temporal y restaura el tema anterior
-              themeBloc.add(CancelTheme());
               Navigator.of(context).pop(); // Cierra el diálogo
             },
             child: const Text('Cancelar'),
@@ -117,5 +117,10 @@ void showThemesDialog(BuildContext context) {
         ],
       );
     },
-  );
+  ).then((value) {
+    if (closeDialog == false) {
+      // Cancela la selección de tema temporal y restaura el tema anterior
+      themeBloc.add(CancelTheme());
+    }
+  });
 }

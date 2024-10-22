@@ -62,18 +62,22 @@ void showThemesDialog(BuildContext context) {
                     });
                   },
                 ),
-                Slider(
+                DropdownButton<double>(
                   value: sliderValue,
-                  max: 8,
-                  divisions: 8,
-                  label: sliderValue.round().toString(),
-                  onChanged: (double value) {
+                  items: List.generate(9, (index) => index.toDouble())
+                      .map((double value) {
+                    return DropdownMenuItem<double>(
+                      value: value,
+                      child: Text(value.round().toString()),
+                    );
+                  }).toList(),
+                  onChanged: (double? newValue) {
                     setState(() {
-                      sliderValue = value;
+                      sliderValue = newValue!;
                     });
                     // Emitimos un estado temporal para que los cambios sean visibles inmediatamente
                     themeBloc.add(ThemeSelected(
-                      selectedColor: value.round(),
+                      selectedColor: sliderValue.round(),
                       isDarkMode: isDarkMode,
                       sizeText: sizeText, // Mantener el tamaño de texto actual
                     ));

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_listado/domain/entities/character.dart';
 import 'package:flutter_listado/presentations/bloc/characters_bloc.dart';
 import 'package:flutter_listado/presentations/bloc/characters_event.dart';
 import 'package:flutter_listado/presentations/bloc/characters_state.dart';
-import 'package:flutter_listado/presentations/widgets/modal.dart';
+import 'package:flutter_listado/presentations/widgets/character_lista.dart';
+import 'package:flutter_listado/presentations/widgets/dialog_theme.dart';
 
 class CharactersScreen extends StatefulWidget {
   const CharactersScreen({super.key});
@@ -57,6 +57,12 @@ class _CharacterScreenState extends State<CharactersScreen> {
               ],
             ),
           ),
+          ElevatedButton(
+            onPressed: () {
+              showThemesDialog(context);
+            },
+            child: const Text('Temas'),
+          ),
           Expanded(
             child: BlocBuilder<CharacterBloc, CharacterState>(
               builder: (context, state) {
@@ -70,27 +76,7 @@ class _CharacterScreenState extends State<CharactersScreen> {
                 }
                 // Mostrar la lista de personajes
                 else if (state.characters.isNotEmpty) {
-                  return Column(
-                    children: [
-                      Text("Pesronages mostrados ${state.characters.length}"),
-                      Expanded(
-                          child: ListView.builder(
-                        itemCount: state.characters.length,
-                        itemBuilder: (context, index) {
-                          final character = state.characters[index];
-                          return ListTile(
-                              leading: Image.network(character.image),
-                              title: Text(character.name),
-                              subtitle: Text(
-                                  "${character.house}\n${character.age}\n${character.species}"),
-                              onTap: () {
-                                tapCharacter(character.name, character.house,
-                                    character.age, character.species);
-                              });
-                        },
-                      ))
-                    ],
-                  );
+                  return CharactersLista(char: state.characters);
                 }
                 // Si no hay personajes, mostrar un mensaje vacío
                 else {

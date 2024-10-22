@@ -11,4 +11,6 @@ class Character {
       required this.image,
       required this.age,
       required this.species});
+
+  get family => null;
 }

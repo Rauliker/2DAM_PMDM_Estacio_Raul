@@ -3,11 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_listado/presentations/bloc/characters_bloc.dart';
 import 'package:flutter_listado/presentations/bloc/characters_event.dart';
 import 'package:flutter_listado/presentations/bloc/characters_state.dart';
-import 'package:flutter_listado/presentations/bloc/users/login_bloc.dart';
-import 'package:flutter_listado/presentations/bloc/users/login_event.dart';
 import 'package:flutter_listado/presentations/widgets/character_lista.dart';
+import 'package:flutter_listado/presentations/widgets/dialog_logout.dart';
 import 'package:flutter_listado/presentations/widgets/dialog_theme.dart';
-import 'package:go_router/go_router.dart';
 
 class CharactersScreen extends StatefulWidget {
   const CharactersScreen({super.key});
@@ -34,8 +32,7 @@ class _CharacterScreenState extends State<CharactersScreen> {
           IconButton(
             icon: const Icon(Icons.exit_to_app),
             onPressed: () {
-              context.read<LoginBloc>().add(LogoutButtonPressed());
-              context.go('/login');
+              dialogLogout(context);
             },
           ),
         ],

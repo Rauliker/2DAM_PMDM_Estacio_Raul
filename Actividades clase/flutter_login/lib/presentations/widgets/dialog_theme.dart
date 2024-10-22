@@ -25,6 +25,17 @@ void showThemesDialog(BuildContext context) {
         title: const Text('Seleccionar Tema'),
         content: StatefulBuilder(
           builder: (context, setState) {
+            var colorNames = [
+              "Azul",
+              "Verde azulado",
+              "Verde",
+              "Rojo",
+              "Púrpura",
+              "Púrpura intenso",
+              "Naranja",
+              "Rosa",
+              "Rosa intenso"
+            ];
             return Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -62,22 +73,24 @@ void showThemesDialog(BuildContext context) {
                     });
                   },
                 ),
-                DropdownButton<double>(
-                  value: sliderValue,
-                  items: List.generate(9, (index) => index.toDouble())
-                      .map((double value) {
-                    return DropdownMenuItem<double>(
-                      value: value,
-                      child: Text(value.round().toString()),
+                DropdownButton<String>(
+                  value: colorNames[sliderValue
+                      .round()], // Cambia esto para que muestre el nombre del color correspondiente
+                  items: colorNames.map((String colorName) {
+                    return DropdownMenuItem<String>(
+                      value: colorName,
+                      child: Text(colorName),
                     );
                   }).toList(),
-                  onChanged: (double? newValue) {
+                  onChanged: (String? newValue) {
                     setState(() {
-                      sliderValue = newValue!;
+                      sliderValue = colorNames.indexOf(newValue!)
+                          as double; // Actualiza sliderValue basándote en el índice del nombre del color
                     });
                     // Emitimos un estado temporal para que los cambios sean visibles inmediatamente
                     themeBloc.add(ThemeSelected(
-                      selectedColor: sliderValue.round(),
+                      selectedColor: sliderValue
+                          .round(), // Usa el índice como valor seleccionado
                       isDarkMode: isDarkMode,
                       sizeText: sizeText, // Mantener el tamaño de texto actual
                     ));
